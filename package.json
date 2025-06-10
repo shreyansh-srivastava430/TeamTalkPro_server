@@ -1,0 +1,19 @@
+{
+  "name": "teamtalkpro_server",
+  "version": "1.0.0",
+  "description": "backend of teamtalkpro",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jkcsoftwaresllp/TeamTalkPro_server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jkcsoftwaresllp/TeamTalkPro_server/issues"
+  },
+  "homepage": "https://github.com/jkcsoftwaresllp/TeamTalkPro_server#readme"
+}
