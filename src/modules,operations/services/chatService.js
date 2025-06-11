@@ -44,11 +44,23 @@ export const removeMember = (chatId, userId) => {
   return db.execute('DELETE FROM chat_members WHERE chat_id = ? AND user_id = ?', [chatId, userId]);
 };
 
-export const getUserChats = (userId) => {
-  return db.execute(
-    `SELECT c.id, c.name, c.is_group FROM chats c
+export const getUserChats = async (userId) => {
+  const [chats] = await db.execute(
+    `SELECT c.id, c.name, c.is_group, GROUP_CONCAT(u.username) as members
+     FROM chats c
      JOIN chat_members cm ON c.id = cm.chat_id
-     WHERE cm.user_id = ?`,
+     JOIN users u ON cm.user_id = u.id
+     WHERE c.id IN (SELECT chat_id FROM chat_members WHERE user_id = ?)
+     GROUP BY c.id`,
     [userId]
   );
+  return chats;
+};
+
+export const getChatMessages = async (chatId) => {
+  const [messages] = await db.execute(
+    'SELECT m.id, m.content, m.created_at, u.username FROM messages m JOIN users u ON m.sender_id = u.id WHERE m.chat_id = ? ORDER BY m.created_at DESC LIMIT 50',
+    [chatId]
+  );
+  return messages;
 };

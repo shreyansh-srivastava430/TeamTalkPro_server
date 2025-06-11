@@ -4,7 +4,8 @@ import {
   createPrivateChat,
   addMember,
   removeMember,
-  getUserChats
+  getUserChats,
+  getChatMessages
 } from '../controllers/chatController.js';
 
 const router = express.Router();
@@ -14,5 +15,6 @@ router.post('/private', createPrivateChat);
 router.post('/:chatId/add', addMember);
 router.delete('/:chatId/remove/:userId', removeMember);
 router.get('/my-chats/:userId', getUserChats);
+router.get('/:chatId/messages', getChatMessages);
 
 export default router;

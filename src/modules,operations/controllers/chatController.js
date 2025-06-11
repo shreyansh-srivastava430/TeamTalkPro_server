@@ -3,7 +3,8 @@ import {
   createPrivateChat as createPrivate,
   addMember as add,
   removeMember as remove,
-  getUserChats as getChats
+  getUserChats as getChats,
+  getChatMessages as getMessages
 } from '../services/chatService.js';
 
 export const createGroupChat = async (req, res) => {
@@ -44,8 +45,17 @@ export const removeMember = async (req, res) => {
 
 export const getUserChats = async (req, res) => {
   try {
-    const [chats] = await getChats(req.params.userId);
+    const chats = await getChats(req.params.userId);
     res.status(200).json(chats);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+export const getChatMessages = async (req, res) => {
+  try {
+    const messages = await getMessages(req.params.chatId);
+    res.status(200).json(messages);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
