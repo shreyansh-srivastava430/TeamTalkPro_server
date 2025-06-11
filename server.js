@@ -1,3 +1,4 @@
+// 📁 server.js
 import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
@@ -10,12 +11,13 @@ const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: '*',
-    methods: ['GET', 'POST', 'DELETE']
-  }
+    methods: ['GET', 'POST', 'DELETE'],
+  },
 });
 
 app.use(cors());
 app.use(express.json());
+
 app.use('/api/chats', chatRoutes);
 
 chatSocket(io);

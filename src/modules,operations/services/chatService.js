@@ -57,10 +57,10 @@ export const getUserChats = async (userId) => {
   return chats;
 };
 
-export const getChatMessages = async (chatId) => {
+export const getChatMessages = async (chatId, limit = 50, offset = 0) => {
   const [messages] = await db.execute(
-    'SELECT m.id, m.content, m.created_at, u.username FROM messages m JOIN users u ON m.sender_id = u.id WHERE m.chat_id = ? ORDER BY m.created_at DESC LIMIT 50',
-    [chatId]
+    'SELECT m.id, m.content, m.created_at, u.username FROM messages m JOIN users u ON m.sender_id = u.id WHERE m.chat_id = ? ORDER BY m.created_at DESC LIMIT ? OFFSET ?',
+    [chatId, limit, offset]
   );
   return messages;
 };
