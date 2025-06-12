@@ -1,7 +1,7 @@
 const validateRegister = (req, res, next) => {
   const { email, password, username } = req.body;
 
-  // Check if all fields are present
+  // Check if all required fields are present
   if (!email || !password || !username) {
     return res.status(400).json({ error: 'All fields (email, password, username) are required' });
   }
@@ -17,7 +17,7 @@ const validateRegister = (req, res, next) => {
     return res.status(400).json({ error: 'Password must be at least 6 characters' });
   }
 
-  // Check username length (optional, example)
+  // Check username length
   if (username.length < 3) {
     return res.status(400).json({ error: 'Username must be at least 3 characters' });
   }
