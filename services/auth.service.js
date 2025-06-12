@@ -3,11 +3,11 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { secret, expiresIn } from '../config/jwt.js';
 
-const register = async (email, password, username) => {
+const register = async (email, password, username, avatar = null) => {
   const hashedPassword = await bcrypt.hash(password, 12);
   const [result] = await pool.query(
-    'INSERT INTO users (email, password, username) VALUES (?, ?, ?)',
-    [email, hashedPassword, username]
+    'INSERT INTO users (email, password, username, avatar) VALUES (?, ?, ?, ?)',
+    [email, hashedPassword, username, avatar]
   );
   return result.insertId;
 };

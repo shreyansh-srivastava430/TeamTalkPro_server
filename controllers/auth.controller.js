@@ -2,8 +2,8 @@ import { register, login } from '../services/auth.service.js';
 
 const registerUser = async (req, res, next) => {
   try {
-    const { email, password, username } = req.body;
-    const userId = await register(email, password, username);
+    const { email, password, username, avatar } = req.body;
+    const userId = await register(email, password, username, avatar);
     res.status(201).json({ message: 'User registered successfully', userId });
   } catch (err) {
     if (err.code === 'ER_DUP_ENTRY') {
